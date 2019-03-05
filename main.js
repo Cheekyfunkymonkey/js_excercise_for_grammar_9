@@ -29,12 +29,21 @@
  * https://tsuyopon.xyz/learning-contents/web-dev/javascript/javascript-grammar/how-to-iterate-an-array-in-js/
  */
 
+const numbers1 = [1, 2, 3, 4];
 // ここでeach関数を作る
-
+function each(array, callback) {
+  for (let i = 0; i < array.length; i++) {
+    callback(array[i], i);
+  }
+}
 
 // ここでeach関数の挙動を確かめる
+const eachResult = each(numbers1, (number, index) => {
+  console.log("each関数のコールバック関数内　index:", index, " 値:" + number);
+});
 
-
+console.log("each関数の入力値：", numbers1);
+console.log("each関数の戻り値：", eachResult);
 /**
  * 課題2: 「Array.prototype.map()」と同等の機能を持つ関数を作る
  *   - 「Array.prototype.map()」のドキュメント
@@ -62,12 +71,26 @@
  * 上の文章で実装する内容を理解するよりも、「Array.prototype.map()」のドキュメントの例を参考にmapがどんな挙動をするのか理解するのか理解したほうが早いかも。
  */
 
-// ここでmap関数を実装する
+const numbers2 = [1, 2, 3];
 
+// ここでmap関数を実装する
+function map(array, callback) {
+  const newArray = [];
+  each(array, (number, index) => {
+    const newValue = callback(number, index);
+    newArray.push(newValue);
+  });
+  return newArray;
+}
 
 // ここでmap関数の挙動を確認する
+const mapResult = map(numbers2, (number, index) => {
+  console.log("map関数のコールバック関数内　index:", index, " 値:" + number);
+  return number * 2;
+});
 
-
+console.log("map関数の入力値：", numbers2);
+console.log("map関数の戻り値：", mapResult);
 
 /**
  * 課題3: 「Array.prototype.filter()」と同等の機能を持つ関数を作る
@@ -98,8 +121,23 @@
  * 上の文章で実装する内容を理解するよりも、「Array.prototype.filter()」のドキュメントの例を参考にfilterがどんな挙動をするのか理解するのか理解したほうが早いかも。
  */
 
+const numbers3 = [1, 2, 3, 4, 5];
 // ここでfilter関数を作る
-
+function filter(array, callback) {
+  const filteredArray = [];
+  each(array, (number, index) => {
+    if (callback(number, index) === true) {
+      filteredArray.push(number);
+    }
+  });
+  return filteredArray;
+}
 
 // ここでfilter関数の挙動を確認する
+const filterResult = filter(numbers3, (number, index) => {
+  console.log("filter関数のコールバック関数内　index:", index, " 値:" + number);
+  return number % 2 === 0;
+});
 
+console.log("filter関数の入力値：", numbers3);
+console.log("filter関数の戻り値：", filterResult);
